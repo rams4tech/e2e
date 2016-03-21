@@ -1,0 +1,82 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Mobile Phone Reviews</title>
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular/angular-route.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="app.js"></script>
+    <script src="controllers.js"></script>
+</head>
+<body ng-app="youtubereviews">
+
+<div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <ul class="nav">
+                    <li><a href="#mobilelist"> Mobile Phone List </a></li>
+                    <li><a href="#searchreviews"> Search Reviews </a></li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <div ng-view>
+                	Mobile Review Page
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inline Templates (Partials) -->
+
+    <script type="text/ng-template" id="mobilelist.html">
+        <h1>Mobile Phones List</h1>
+        <ul>
+            <li ng-repeat="mobile in mobilePhonesList track by $index">
+                <a href="#reviews/{{mobile.mobileName}}">{{mobile.mobileName}}</a>
+            </li>
+        </ul>
+    </script>
+
+    <script type="text/ng-template" id="searchreviews.html">
+        <!-- Search Mobile -->
+        <div>
+            <p>Enter Mobile to Search</p>
+            <input type="text" ng-model="mobilePhoneName"><br>
+            <button type="button" ng-click="fetchReviews();">View Reviews</button>
+        </div>
+
+    </script>
+
+    <script type="text/ng-template" id="mobilereviews.html">
+            <h1>Mobile Reviews {{title}}</h1>
+         <div class="table-striped">   
+            <table id="reviewListTable" class="table">
+                <thead>
+                <tr>
+                    <th>Video Id</th>
+                    <th>Review Title</th>
+                    <th>Review Description</th>
+                    <th>Channel Title</th>
+                    <th>Published Date</th>
+					<th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="review in reviewsList track by $index">
+                    <td>{{review.videoId}}</td>
+                    <td>{{review.reviewTitle}}</td>
+                    <td>{{review.reviewDescription}}</td>
+                    <td>{{review.channelTitle}}</td>
+                    <td>{{review.publishedDate}}</td>
+					<td><a href="#" ng-click="deleteReview(review.videoId);">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </script>
+</div>
+</body>
+</html>
